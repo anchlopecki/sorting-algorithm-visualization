@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <style>
+
+      html * {
+        font-family: 'Courier New', monospace;
+        background-color: rgb(245, 245, 245);
+      }
+
+      h1 {
+        padding: 20px;
+        margin: 0;
+        font-weight: lighter;
+        text-decoration: underline;
+      }
+
+      h2 {
+        font-weight: lighter;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      p {
+        padding: 20px;
+        margin: 0;
+      }
+
+      a:link, a:visited {
+        cursor: pointer;
+        color: rgb(133, 152, 191);
+      }
+
+      .wedge {
+      }
+
+      .wedge:hover {
+        transition: .5s;
+        cursor: pointer;
+      }
+
+      .main_column {
+      }
+
+      </style>
+
+  </head>
+
+  <body>
+
+    <h1>Sorting Algorithm Visualizer</h1>
+
+    <h2>Select a Sorting Algorithm</h2>
+
+    <div id="wedge_circle" class="main_column"> </div>
+
+    <p>A Project By: Anna Natalie Chlopecki and <a href="https://etdavila10.github.io">Eduardo Torres D&aacutevila</a></p>
+
+    <script>
+
+      var i;
+      /* Array which stores color information of wedges */
+      const colors = ["#6C5DA6", "#7C9D96", "#82B4CA", "#92D9D0", "#96CCDD", "#98B4DD", "#9AD1B4", "#9BBFCF",
+                      "#A7A5A5", "#ADD7B7", "#B9D4AF", "#C16BEA", "#D89292", "#D9D188", "#DBE2B1", "#DD95CD",
+                      "#DEB690", "#DFA2C3", "#ECEDBD", "#EF7E84", "#F5A1A1", "#F97A7A", "#FFB8B8", "#FFB950"];
+      /* Array which stores sorting algorithm names */
+      const sorting_alg_names = ["Bubble Sort"];
+      /* Array which stores all the wedges */
+      var wedge_array = [];
+      /* Rotation array */
+      const rotation_array = [];
+      /* Defines variable which will keep track of rotation */
+      var rotation_amount = 0;
+      /* Defines variable which will control the amount of the wedge which needs to be cut*/
+      const wedge_cut_length = ((360/colors.length)/90)*2*100; /* THIS MATH MAY NEED TO BE EDITTED */
+
+      /* CSS for wedge */
+      var wedge_dim = 200; /* in pixels -- MIGHT WANT TO EDIT TO ACCOMODATE SCREEN SIZE */
+
+      /* Creates array which stores rotation information */
+      for (i = 0 ; i < colors.length ; i++) {
+        rotation_array.push(rotation_amount);
+        rotation_amount += 360/colors.length;
+      }
+
+      /* FIX!!! */
+      /* Creates array for top-values ("y-values") and left-values ("x-values") to position wedges */
+      /* var top_values_array = [];
+      var left_values_array = [];
+      for (i = 0 ; i < colors.length ; i++) {
+        if (i < colors.length/4) {
+          top_values_array.push(200-200*sin(90-rotation_amount[i]));
+          left_values_array.push(200-200*cos(90-rotation_amount[i]));
+        }
+        top_values_array.push(100);
+        left_values_array.push(400);
+      } */
+
+      /* Creates and positions wedges */
+      for (i = 0 ; i < colors.length ; i++) {
+
+        /* Creates a new wedge element */
+        var wedge_element = document.createElement("div");
+
+        /* Specifies class of newly created wedge */
+        wedge_element.classList.add("wedge");
+
+        /* Specifies wedge dimensions and border */
+        wedge_element.style.height = `${wedge_dim}px`;
+        wedge_element.style.width = `${wedge_dim}px`;
+        wedge_element.style.border = "none";
+        wedge_element.style.borderRadius = `0px ${wedge_dim}px 0px 0px`;
+
+        /* Sets color of newly created wedge */
+        wedge_element.style.background = colors[i];
+
+        /* Rotates wedge */
+        wedge_element.style.transform = `rotate(${rotation_array[i]}deg)`;
+
+        /* Cuts wedge to appropriate size by clipping out a portion of the original wedge*/
+        wedge_element.style.clipPath = `polygon(0 0, ${wedge_cut_length}% 0, 0 100%)`;
+
+        /* FIX!!! */
+        /* Positions wedges */
+
+        /* Adds newly created wedge to the body of the html file */
+        document.getElementById("wedge_circle").appendChild(wedge_element);
+
+        /* Append new wedge to wedge_array */
+        wedge_array.push(wedge_element);
+      }
+
+      document.title = "Sorting Algorithm Visualizer";
+
+    </script>
+
+  </body>
+
+</html>
