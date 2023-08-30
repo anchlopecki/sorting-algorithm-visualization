@@ -37,6 +37,11 @@
       }
 
       .wedge {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 100px;
       }
 
       .wedge:hover {
@@ -45,6 +50,8 @@
       }
 
       .main_column {
+        height: 500px;
+        position: relative;
       }
 
       </style>
@@ -77,7 +84,7 @@
       /* Defines variable which will keep track of rotation */
       var rotation_amount = 0;
       /* Defines variable which will control the amount of the wedge which needs to be cut*/
-      const wedge_cut_length = ((360/colors.length)/90)*2*100; /* THIS MATH MAY NEED TO BE EDITTED */
+      const wedge_cut_length = ((360/colors.length)/90)*163; /* THIS MATH MAY NEED TO BE EDITTED */
 
       /* CSS for wedge */
       var wedge_dim = 200; /* in pixels -- MIGHT WANT TO EDIT TO ACCOMODATE SCREEN SIZE */
@@ -120,7 +127,7 @@
         wedge_element.style.background = colors[i];
 
         /* Rotates wedge */
-        wedge_element.style.transform = `rotate(${rotation_array[i]}deg)`;
+        wedge_element.style.transform = `rotate(${rotation_array[i]}deg) translate(100px, -100px)`;
 
         /* Cuts wedge to appropriate size by clipping out a portion of the original wedge*/
         wedge_element.style.clipPath = `polygon(0 0, ${wedge_cut_length}% 0, 0 100%)`;
