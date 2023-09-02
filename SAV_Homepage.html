@@ -84,10 +84,11 @@
       /* Defines variable which will keep track of rotation */
       var rotation_amount = 0;
       /* Defines variable which will control the amount of the wedge which needs to be cut*/
-      const wedge_cut_length = ((360/colors.length)/90)*163; /* THIS MATH MAY NEED TO BE EDITTED */
 
       /* CSS for wedge */
       var wedge_dim = 200; /* in pixels -- MIGHT WANT TO EDIT TO ACCOMODATE SCREEN SIZE */
+
+      const wedge_cut_length = Math.tan(degrees_to_radians(360/colors.length)) * wedge_dim;
 
       /* Creates array which stores rotation information */
       for (i = 0 ; i < colors.length ; i++) {
@@ -127,10 +128,10 @@
         wedge_element.style.background = colors[i];
 
         /* Rotates wedge */
-        wedge_element.style.transform = `rotate(${rotation_array[i]}deg) translate(100px, -100px)`;
+        wedge_element.style.transform = `rotate(${rotation_array[i]}deg) translate(${wedge_dim/2}px, -${wedge_dim/2}px)`;
 
         /* Cuts wedge to appropriate size by clipping out a portion of the original wedge*/
-        wedge_element.style.clipPath = `polygon(0 0, ${wedge_cut_length}% 0, 0 100%)`;
+        wedge_element.style.clipPath = `polygon(0 0, ${wedge_cut_length}px 0, 0 100%)`;
 
         /* FIX!!! */
         /* Positions wedges */
@@ -143,6 +144,11 @@
       }
 
       document.title = "Sorting Algorithm Visualizer";
+
+      function degrees_to_radians(degrees) {
+        let pi = Math.PI;
+        return degrees * (pi/180);
+      }
 
     </script>
 
